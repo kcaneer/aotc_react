@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import axios from "axios";
-import { render } from 'react-dom';
 
 export default class Registration extends Component {
     constructor(props){
@@ -9,7 +8,7 @@ export default class Registration extends Component {
             username:"",
             email:"",
             password:"",
-            loginErros: ""
+            registrationErrors: ""
         };
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleChange = this.handleChange.bind(this);
