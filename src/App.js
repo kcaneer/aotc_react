@@ -5,7 +5,7 @@ import "./App.css";
 import Want from './components/Want'
 import Listened from './components/Listened'
 import Public from './components/Public'
-import Auth from './components/Auth'
+import Dashboard from './components/Dashboard'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 function App() {
@@ -14,9 +14,9 @@ function App() {
       <Router>
         <Switch>
         <Route exact path={"/"} component={Public} />
-        <Route exact path={"/auth"} component={Auth} />
-        <Route exact path={"/auth/want"} component={Want} />
-        <Route exact path={"/auth/listened"} component={Listened} />
+        <Route exact path={"/dashboard"} component={Dashboard} />
+        <Route exact path={"/dashboard/want"} component={Want} />
+        <Route exact path={"/dashboard/listened"} component={Listened} />
         </Switch>
       </Router>
     </div>

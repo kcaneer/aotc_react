@@ -1,30 +1,14 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-      loginErrors: "",
-    };
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({
-      [event.target.name]: event.target.value,
-    });
-  }
-
-  handleSubmit(event) {
-    const { email, password } = this.state;
-    console.log(password, email);
+export default function Login(){
+  const[email, setEmail] = useState('') 
+  const[password, setPassword] = useState('') 
+  const history = useHistory();
+  const handleClick = event => {
     const headers = {
-
-      Accept: "application/json",
+      'Accept': "application/json",
       "Content-Type": "application/json; charset=utf-8",
     };
     axios({
@@ -32,54 +16,48 @@ export default class Login extends Component {
       method: "post",
       data: {
         grant_type: "password",
-        client_id: '6',
+        client_id: "6",
         client_secret: "2dtobHf0U4BXyhnzUeZz7b6WMUf2tp0SxAJFbPkd",
-        password: password,
+        password,
         username: email,
         scope: "",
       },
       headers,
     })
       .then((response) => {
-          console.log(response);
-        if (response.data.status === "loggedin") {
-          this.props.handleSuccessfulAuth(response.data);
+        console.log(response);
+        if (response.status === 200) {
+          history.push("/dashboard");
         }
       })
       .catch((error) => {
         console.log("login error", error);
       });
-    event.preventDefault();
   }
-  render() {
     return (
       <div className="p-5 my-auto">
-        <form onSubmit={this.handleSubmit}>
           <input
             type="email"
             name="email"
             placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             required
           />
-
           <input
             type="password"
             name="password"
             placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             required
           />
           <button
             className="bg-primary text-secondary rounded ml-1 border border-primary"
-            type="submit"
+            onClick={handleClick}
           >
             Login
           </button>
-        </form>
       </div>
     );
   }
-}

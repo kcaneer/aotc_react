@@ -7,7 +7,7 @@ import {
   UncontrolledCollapse,
 } from "reactstrap";
 
-class Auth extends React.Component {
+class Want extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -60,17 +60,17 @@ class Auth extends React.Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a className="navbar-brand text-secondary" href="/auth">
+            <a className="navbar-brand text-secondary" href="/dashboard">
               GoodListens
             </a>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
               <li className="nav-item active">
-                <a className="nav-link text-secondary" href="/auth/want">
+                <a className="nav-link text-secondary" href="/dashboard/want">
                   Want To Listen
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link text-secondary" href="/auth/listened">
+                <a className="nav-link text-secondary" href="/dashboard/listened">
                   Listened
                 </a>
               </li>
@@ -149,4 +149,4 @@ class Auth extends React.Component {
     );
   }
 }
-export default Auth;
+export default Want;
