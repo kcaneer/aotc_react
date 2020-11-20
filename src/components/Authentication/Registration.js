@@ -1,86 +1,69 @@
-import React, {Component} from 'react';
+import React, { useState } from "react";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
 
-export default class Registration extends Component {
-    constructor(props){
-        super(props);
-        this.state={
-            username:"",
-            email:"",
-            password:"",
-            registrationErrors: ""
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+export default function Registration() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const history = useHistory();
+  const handleClick = (event) => {
+    const headers = {
+      Accept: "application/json",
+      "Content-Type": "application/json; charset=utf-8",
     };
-
-handleChange(event){
-   this.setState({
-       [event.target.name]: event.target.value
-   }); 
-}
-
-handleSubmit(event){
-    const { username, email, password } = this.state;
-    
-    axios
-      .post(
-        "http://127.0.0.1:8000/register",
-        {
-          name: username,
-          email: email,
-          password: password,
-        },
-        { withCredentials: true,  }
-      )
+    axios({
+      url: "http://127.0.0.1:8000/register",
+      method: "post",
+      data: {
+        name,
+        email,
+        password,
+      },
+      headers,
+    })
       .then((response) => {
-        if (response.data.status === "created") {
-          this.props.handleSuccessfulAuth(response.data);
+        console.log(response);
+        if (response.status === 200) {
+          history.push("/dashboard");
         }
       })
       .catch((error) => {
         console.log("registration error", error);
       });
-    event.preventDefault();
-};
-
-render() {
-    return (
-      <div className="pb-5 my-auto">
-        <form onSubmit={this.handleSubmit}>
-          <input
-            type="username"
-            name="username"
-            placeholder="Username"
-            value={this.state.username}
-            onChange={this.handleChange}
-            required
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={this.state.email}
-            onChange={this.handleChange}
-            required
-          />
-
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={this.state.password}
-            onChange={this.handleChange}
-            required
-          />
-          <button
-            className="bg-primary text-secondary rounded ml-1 border border-primary"
-            type="submit"
-          >
-            Register
-          </button>
-        </form>
-      </div>
-    );
-    }
-};
+  };
+  return (
+    <div className="p-5 my-auto">
+      <input
+        type="name"
+        name="name"
+        placeholder="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <input
+        type="email"
+        name="email"
+        placeholder="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
+      />
+      <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
+      />
+      <button
+        className="bg-primary text-secondary rounded ml-1 border border-primary"
+        onClick={handleClick}
+      >
+        Register
+      </button>
+    </div>
+  );
+}

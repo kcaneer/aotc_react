@@ -90,10 +90,10 @@ const Example = (props) => {
           </form>
         </div>
       </nav>
-      <div class="jumbotron jumbotron-fluid bg-secondary">
-        <div class="container">
-          <h1 class="display-4">Welcome to GoodListens</h1>
-          <h3 class="lead">Your podcast place.</h3>
+      <div className="jumbotron jumbotron-fluid bg-secondary">
+        <div className="container">
+          <h1 className="display-4">Welcome to GoodListens</h1>
+          <h3 className="lead">Your podcast place.</h3>
         </div>
       </div>
       <h3>
