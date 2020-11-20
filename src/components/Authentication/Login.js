@@ -23,9 +23,7 @@ export default class Login extends Component {
     const { email, password } = this.state;
     console.log(password, email);
     const headers = {
-      //   "Content-Type": "application/json;charset=UTF8",
-      //   "Content-Type": "application/x-www-form-urlencoded",
-      //   "Access-Control-Allow-Origin": "*",
+
       Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
     };
@@ -55,7 +53,7 @@ export default class Login extends Component {
   }
   render() {
     return (
-      <div className="pb-2">
+      <div className="p-5 my-auto">
         <form onSubmit={this.handleSubmit}>
           <input
             type="email"
@@ -74,7 +72,12 @@ export default class Login extends Component {
             onChange={this.handleChange}
             required
           />
-          <button type="submit">Login</button>
+          <button
+            className="bg-primary text-secondary rounded ml-1 border border-primary"
+            type="submit"
+          >
+            Login
+          </button>
         </form>
       </div>
     );
