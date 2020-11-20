@@ -46,12 +46,12 @@ handleSubmit(event){
 
 render() {
     return (
-      <div>
+      <div className="pb-5 my-auto">
         <form onSubmit={this.handleSubmit}>
           <input
             type="username"
             name="username"
-            placeholder="username"
+            placeholder="Username"
             value={this.state.username}
             onChange={this.handleChange}
             required
@@ -73,7 +73,12 @@ render() {
             onChange={this.handleChange}
             required
           />
-          <button type="submit">Register</button>
+          <button
+            className="bg-primary text-secondary rounded ml-1 border border-primary"
+            type="submit"
+          >
+            Register
+          </button>
         </form>
       </div>
     );
