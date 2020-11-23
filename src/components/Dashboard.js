@@ -74,18 +74,18 @@ let foundItem = this.state.podcasts.obj;
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-            <a className="navbar-brand text-secondary" href="/dashboard">
-              GoodListens
+            <a className="navbar-brand text-light" href="/dashboard">
+              <h4>GoodListens</h4>
             </a>
             <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-              <li className="nav-item active">
-                <a className="nav-link text-secondary" href="/dashboard/want">
-                  Want To Listen
+              <li className="nav-item active ml-3">
+                <a className="nav-link text-light" href="/dashboard/want">
+                  <h6>Want To Listen</h6>
                 </a>
               </li>
-              <li className="nav-item">
-                <a className="nav-link text-secondary" href="/dashboard/listened">
-                  Listened
+              <li className="nav-item ml-3">
+                <a className="nav-link text-light" href="/dashboard/listened">
+                  <h6>Listened</h6>
                 </a>
               </li>
             </ul>
@@ -114,7 +114,7 @@ let foundItem = this.state.podcasts.obj;
         <div className="container bg-secondary text-center rounded">
           <Button
             id="lunch"
-            className="pt-4 bg-primary text-secondary border border-primary
+            className="pt-4 bg-primary text-light border border-primary
             rounded mb-2"
           >
             <h4>Here are some popular podcasts you might want to check out!</h4>
@@ -133,14 +133,18 @@ let foundItem = this.state.podcasts.obj;
                           <button
                             type="button"
                             class="btn btn-primary btn-sm mr-2"
-                            onClick={()=> this.addToWant(this.state.podcasts.obj)}
+                            onClick={() =>
+                              this.addToWant(this.state.podcasts.obj)
+                            }
                           >
                             Want to Listen{" "}
                           </button>
                           <button
                             type="button"
                             class="btn btn-secondary btn-sm border border-primary"
-                            onClick={()=> this.addToListened(this.state.podcasts.obj)}
+                            onClick={() =>
+                              this.addToListened(this.state.podcasts.obj)
+                            }
                           >
                             Listened
                           </button>
