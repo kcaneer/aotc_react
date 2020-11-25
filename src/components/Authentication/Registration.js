@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useHistory } from "react-router-dom";
+import { axiosHelper } from "../Utilities/axiosHelper";
 
 export default function Registration() {
   const [name, setName] = useState("");
@@ -12,25 +12,11 @@ export default function Registration() {
       Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
     };
-    axios({
-      url: "http://127.0.0.1:8000/register",
-      method: "post",
-      data: {
+    axiosHelper('post', 'http://127.0.0.1:8000/register', {
         name,
         email,
         password,
-      },
-      headers,
-    })
-      .then((response) => {
-        console.log(response);
-        if (response.status === 200) {
-          history.push("/dashboard");
-        }
-      })
-      .catch((error) => {
-        console.log("registration error", error);
-      });
+      }, headers, history) 
   };
   return (
     <div className="p-5 my-auto">

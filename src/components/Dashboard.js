@@ -132,7 +132,7 @@ let foundItem = this.state.podcasts.obj;
                         <div className="col col-4 text-right">
                           <button
                             type="button"
-                            class="btn btn-primary btn-sm mr-2"
+                            className="btn btn-primary btn-sm mr-2"
                             onClick={() =>
                               this.addToWant(this.state.podcasts.obj)
                             }
