@@ -107,7 +107,7 @@ let foundItem = this.state.podcasts.obj;
         </nav>
         <div class="jumbotron jumbotron-fluid bg-secondary">
           <div class="container">
-            <h1 class="display-4">Welcome back to GoodListens</h1>
+            <h1 class="display-4">Welcome back to goodListens</h1>
             <h3 class="lead">Your podcast place.</h3>
           </div>
         </div>
