@@ -6,31 +6,34 @@ import {
   Card,
   UncontrolledCollapse,
 } from "reactstrap";
-import AppContext from '../Utilities/AppContext'
+import AppContext from "../Utilities/AppContext";
 import { axiosHelper } from "../Utilities/axiosHelper";
 import { useHistory } from "react-router-dom";
 
 export default function Dashboard() {
   const history = useHistory();
-  const {bearer} = useContext(AppContext)
-  const {name} = useContext(AppContext)
-  const { setName } = useContext(AppContext);
-  function receivedUserInfo(data){    
+  const { bearer, setName, name, setBearer } = useContext(AppContext);
+  function receivedUserInfo(data) {
     setName(data.name);
   }
-
-  useEffect(
-    () =>
-    axiosHelper({
-      method: "get",
-      url: "http://127.0.0.1:8000/api/user",
-      headers:{Accept: "application/json", Authorization: `Bearer ${bearer}`},
-      history,
-      functionToRun: receivedUserInfo 
-    }),
-    [bearer]
-    );
-    console.log(bearer);
+const logout = (event) => {
+  setBearer('');
+  history.push('/')
+}
+  useEffect(() => {
+    if (bearer.length > 0) {
+      axiosHelper({
+        method: "get",
+        url: "http://127.0.0.1:8000/api/user",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${bearer}`,
+        },
+        history,
+        functionToRun: receivedUserInfo,
+      });
+    }
+  }, [bearer]);
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -68,14 +71,12 @@ export default function Dashboard() {
               placeholder="Find a podcast here"
               aria-label="Search"
             />
-            <button
-              className="btn btn-outline-secondary my-auto"
-              type="submit"
-            >
+            <button className="btn btn-outline-secondary my-auto" type="submit">
               Search
             </button>
           </form>
-          <button className="btn btn-outline-secondary my-2 my-sm-0 ml-5">
+          <button className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
+          onClick={logout}>
             Logout
           </button>
         </div>
