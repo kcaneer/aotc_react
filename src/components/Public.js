@@ -27,8 +27,8 @@ const Example = (props) => {
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
-          <a className="navbar-brand text-secondary" href="/">
-            GoodListens
+          <a className="navbar-brand text-light" href="/">
+            goodListens
           </a>
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active">
@@ -92,7 +92,7 @@ const Example = (props) => {
       </nav>
       <div className="jumbotron jumbotron-fluid bg-secondary">
         <div className="container">
-          <h1 className="display-4">Welcome to GoodListens</h1>
+          <h1 className="display-4">Welcome to goodListens</h1>
           <h3 className="lead">Your podcast place.</h3>
         </div>
       </div>

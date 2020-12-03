@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect } from "react";
 import "bootstrap";
 import "./theme.css";
 import "./App.css";
@@ -11,7 +11,16 @@ import { AppProvider } from "./Utilities/AppContext";
 function App() {
   const [bearer, setBearer] = useState("");
   const [name, setName] = useState("");
-  let initialContext = {bearer, setBearer, name, setName};
+  const [podcasts, setPodcasts] = useState([]);
+  const [userid, setUserid] = useState(NaN);
+
+  useEffect(() => {
+    const bearerLS = localStorage.getItem('bearer');
+    if (bearerLS){
+      setBearer(bearerLS);
+    }
+  }, []);
+  let initialContext = {bearer, setBearer, name, setName, podcasts, setPodcasts, userid, setUserid};
   return (
     <AppProvider value={initialContext}>
       <div className="App container text-primary bg-secondary pb-4">

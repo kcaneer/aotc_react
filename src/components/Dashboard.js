@@ -12,14 +12,36 @@ import { useHistory } from "react-router-dom";
 
 export default function Dashboard() {
   const history = useHistory();
-  const { bearer, setName, name, setBearer } = useContext(AppContext);
+  const { bearer, setName, name, setBearer, userid, setUserid, podcasts, setPodcasts } = useContext(
+    AppContext
+  );
+
   function receivedUserInfo(data) {
     setName(data.name);
+    setUserid(data.id);
+    console.log(data);
   }
-const logout = (event) => {
-  setBearer('');
-  history.push('/')
-}
+
+  function receivedPodcastInfo(data) {
+    setPodcasts(data)
+    console.log(data)
+  }
+
+  const logout = (event) => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/logout",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearer}`,
+      },
+    });
+    setBearer("");
+    history.push("/");
+    localStorage.removeItem('user');
+    localStorage.removeItem('bearer');
+  };
+
   useEffect(() => {
     if (bearer.length > 0) {
       axiosHelper({
@@ -34,6 +56,52 @@ const logout = (event) => {
       });
     }
   }, [bearer]);
+
+  useEffect(() => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/podcasts",
+      headers: {
+        Accept: "application/json",
+      },
+      history,
+      functionToRun: receivedPodcastInfo,
+    });
+  }, [userid]);
+
+  const addToWant = (id) => {
+    axiosHelper({
+      method: "post",
+      url: "http://127.0.0.1:8000/want",
+      data: {
+        podcast_id: id,
+        user_id: userid,
+      },
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearer}`,
+      },
+    });
+    document.getElementById("wanted").innerHTML = "✔️";
+  };
+
+  const addToListened = (id) => {
+    axiosHelper({
+      method: "post",
+      url: "http://127.0.0.1:8000/listened",
+      data: {
+        podcast_id: id,
+        user_id: userid,
+      },
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearer}`,
+      },
+      functionToRun: receivedPodcastInfo,
+      history
+    });
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -50,7 +118,7 @@ const logout = (event) => {
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <a className="navbar-brand text-light" href="/dashboard">
-            <h4>GoodListens</h4>
+            <h4>goodListens</h4>
           </a>
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active ml-3">
@@ -75,8 +143,10 @@ const logout = (event) => {
               Search
             </button>
           </form>
-          <button className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
-          onClick={logout}>
+          <button
+            className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
+            onClick={logout}
+          >
             Logout
           </button>
         </div>
@@ -98,37 +168,53 @@ const logout = (event) => {
         <UncontrolledCollapse toggler="#lunch">
           <Card className="bg-primary">
             <CardBody>
-              {/* <div className="col col-10 mx-auto rounded">
-                {this.state.podcasts.map((obj, i) => {
+              <div className="col col-12 mx-auto rounded">
+                {podcasts.slice(0,25).map((obj, i) => {
+                  const foundListenData = obj.listens.find(i=>{
+                    console.log({i, userid, obj});
+                    return i.user_id==userid
+                  })
+                  console.log(foundListenData)
                   return (
-                    <div className="row justify-content-around p-3 bg-secondary border border-primary rounded my-auto">
-                      <div className="col col-4 text-left" key={i}>
-                        <strong>{obj}</strong>
+                    <div
+                      key={i}
+                      className="row justify-content-around pt-3 bg-secondary border border-primary rounded my-auto"
+                    >
+                      <div className="col col-8 text-left pt-1 text-center text-primary">
+                        <h6>
+                          <strong>
+                            {obj.id}. {obj.title}
+                          </strong>
+                        </h6>
+                        <div>{obj.info}</div>
+                        <div className="text-success pb-3">{obj.genre}</div>
                       </div>
-                      <div className="col col-4 text-right">
+                      <div className="col col-4 text-right my-auto">
                         <button
                           type="button"
+                          id="wanted"
                           className="btn btn-primary btn-sm mr-2"
-                          onClick={() =>
-                            this.addToWant(this.state.podcasts.obj)
-                          }
+                          onClick={() => addToWant(obj.id)}
                         >
                           Want to Listen{" "}
                         </button>
                         <button
                           type="button"
+                          id="listened"
                           class="btn btn-secondary btn-sm border border-primary"
-                          onClick={() =>
-                            this.addToListened(this.state.podcasts.obj)
-                          }
+                          onClick={() => addToListened(obj.id)}
                         >
-                          Listened
+                          {foundListenData
+                            ? foundListenData.listened
+                              ? "✔️"
+                              : "Listened"
+                            : "Listened"}
                         </button>
                       </div>
                     </div>
                   );
                 })}
-              </div> */}
+              </div>
             </CardBody>
           </Card>
         </UncontrolledCollapse>

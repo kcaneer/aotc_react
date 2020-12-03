@@ -7,6 +7,12 @@ export default function Registration() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  
+  function receivedBearer(data){
+        setBearer(data.access_token);
+        localStorage.setItem("bearer", data.access_token);
+      }
+      
   const handleClick = (event) => {
     const headers = {
       'Accept': "application/json",
@@ -16,7 +22,7 @@ export default function Registration() {
         name,
         email,
         password,
-      }, headers, history}) 
+      }, headers, functionToRun: receivedBearer, history}) 
   };
   return (
     <div className="p-5 my-auto">

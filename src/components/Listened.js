@@ -9,7 +9,10 @@ export default function Listened() {
   const logout = (event) => {
     setBearer("");
     history.push("/");
+    localStorage.removeItem("user");
+    localStorage.removeItem("bearer");
   };
+  
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -26,7 +29,7 @@ export default function Listened() {
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <a className="navbar-brand text-light" href="/dashboard">
-            <h4>GoodListens</h4>
+            <h4>goodListens</h4>
           </a>
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item active ml-3">
