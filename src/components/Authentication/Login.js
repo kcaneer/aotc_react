@@ -11,8 +11,8 @@ export default function Login() {
 
   function receivedInfo(data) {
     setBearer(data.access_token);
+    localStorage.setItem("bearer", data.access_token);
   }
-
 
   const handleClick = (event) => {
     const headers = {
@@ -24,8 +24,8 @@ export default function Login() {
       url: "http://127.0.0.1:8000/v1/oauth/token",
       data: {
         grant_type: "password",
-        client_id: "6",
-        client_secret: "2dtobHf0U4BXyhnzUeZz7b6WMUf2tp0SxAJFbPkd",
+        client_id: "2",
+        client_secret: "XIm8WN4kXQuo8kgq3LVT6NEMp2SbIrQUWcjzGRqJ",
         password,
         username: email,
         scope: "",
