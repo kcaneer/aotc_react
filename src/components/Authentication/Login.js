@@ -1,13 +1,13 @@
 import React, { useState, useContext } from "react";
 import { axiosHelper } from "../../Utilities/axiosHelper";
 import { useHistory } from "react-router-dom";
-import AppContext from '../../Utilities/AppContext'
+import AppContext from "../../Utilities/AppContext";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  const {setBearer} = useContext(AppContext);
+  const { setBearer } = useContext(AppContext);
 
   function receivedInfo(data) {
     setBearer(data.access_token);
@@ -25,7 +25,7 @@ export default function Login() {
       data: {
         grant_type: "password",
         client_id: "2",
-        client_secret: "XIm8WN4kXQuo8kgq3LVT6NEMp2SbIrQUWcjzGRqJ",
+        client_secret: "OVhNUrmXF7BPHLWf8XwNqMVUbaeAyhZkDUBqVMmG",
         password,
         username: email,
         scope: "",
@@ -34,6 +34,7 @@ export default function Login() {
       history,
       functionToRun: receivedInfo,
     });
+    history.push("/dashboard");
   };
   return (
     <div className="p-5 my-auto">

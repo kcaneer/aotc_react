@@ -12,9 +12,16 @@ import { useHistory } from "react-router-dom";
 
 export default function Dashboard() {
   const history = useHistory();
-  const { bearer, setName, name, setBearer, userid, setUserid, podcasts, setPodcasts } = useContext(
-    AppContext
-  );
+  const {
+    bearer,
+    setName,
+    name,
+    setBearer,
+    userid,
+    setUserid,
+    podcasts,
+    setPodcasts,
+  } = useContext(AppContext);
 
   function receivedUserInfo(data) {
     setName(data.name);
@@ -23,8 +30,8 @@ export default function Dashboard() {
   }
 
   function receivedPodcastInfo(data) {
-    setPodcasts(data)
-    console.log(data)
+    setPodcasts(data);
+    console.log(data);
   }
 
   const logout = (event) => {
@@ -38,8 +45,8 @@ export default function Dashboard() {
     });
     setBearer("");
     history.push("/");
-    localStorage.removeItem('user');
-    localStorage.removeItem('bearer');
+    localStorage.removeItem("user");
+    localStorage.removeItem("bearer");
   };
 
   useEffect(() => {
@@ -55,6 +62,7 @@ export default function Dashboard() {
         functionToRun: receivedUserInfo,
       });
     }
+    history.push("/dashboard");
   }, [bearer]);
 
   useEffect(() => {
@@ -67,6 +75,7 @@ export default function Dashboard() {
       history,
       functionToRun: receivedPodcastInfo,
     });
+    history.push("/dashboard");
   }, [userid]);
 
   const addToWant = (id) => {
@@ -81,8 +90,10 @@ export default function Dashboard() {
         Accept: "application/json",
         Authorization: `Bearer ${bearer}`,
       },
+      functionToRun: receivedPodcastInfo,
+      history,
     });
-    document.getElementById("wanted").innerHTML = "✔️";
+    history.push("/dashboard");
   };
 
   const addToListened = (id) => {
@@ -98,8 +109,9 @@ export default function Dashboard() {
         Authorization: `Bearer ${bearer}`,
       },
       functionToRun: receivedPodcastInfo,
-      history
+      history,
     });
+    history.push("/dashboard");
   };
 
   return (
@@ -139,7 +151,11 @@ export default function Dashboard() {
               placeholder="Find a podcast here"
               aria-label="Search"
             />
-            <button className="btn btn-outline-secondary my-auto" type="submit">
+            <button
+              className="btn btn-outline-secondary my-auto"
+              type="submit"
+              // onClick={() => search()}
+            >
               Search
             </button>
           </form>
@@ -169,12 +185,12 @@ export default function Dashboard() {
           <Card className="bg-primary">
             <CardBody>
               <div className="col col-12 mx-auto rounded">
-                {podcasts.slice(0,25).map((obj, i) => {
-                  const foundListenData = obj.listens.find(i=>{
-                    console.log({i, userid, obj});
-                    return i.user_id==userid
-                  })
-                  console.log(foundListenData)
+                {podcasts.slice(0, 25).map((obj, i) => {
+                  const foundListenData = obj.listens.find((i) => {
+                    console.log({ i, userid, obj });
+                    return i.user_id == userid;
+                  });
+                  console.log(foundListenData);
                   return (
                     <div
                       key={i}
@@ -196,7 +212,11 @@ export default function Dashboard() {
                           className="btn btn-primary btn-sm mr-2"
                           onClick={() => addToWant(obj.id)}
                         >
-                          Want to Listen{" "}
+                          {foundListenData
+                            ? foundListenData.listened
+                              ? "✔️"
+                              : "Want to Listen"
+                            : "Want to Listen"}
                         </button>
                         <button
                           type="button"
