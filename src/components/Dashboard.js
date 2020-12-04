@@ -182,14 +182,15 @@ export default function Dashboard() {
           id="lunch"
           className="pt-4 bg-primary text-light border border-primary
             rounded mb-2"
+          aria-expanded="false"
         >
           <h4>Here are some popular podcasts you might want to check out!</h4>
         </Button>
-        <UncontrolledCollapse toggler="#lunch">
+        <UncontrolledCollapse toggler="#lunch" className="collapse show">
           <Card className="bg-primary">
             <CardBody>
               <div className="col col-12 mx-auto rounded">
-                {podcasts.slice(0, 25).map((obj, i) => {
+                {podcasts.map((obj, i) => {
                   const foundListenData = obj.listens.find((i) => {
                     console.log({ i, userid, obj });
                     return i.user_id == userid;
@@ -218,8 +219,8 @@ export default function Dashboard() {
                         >
                           {foundListenData
                             ? foundListenData.listened
-                              ? "✔️"
-                              : "Want to Listen"
+                              ? "Want to Listen"
+                              : "✔️"
                             : "Want to Listen"}
                         </button>
                         <button
