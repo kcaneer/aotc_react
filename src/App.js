@@ -15,14 +15,15 @@ function App() {
   const [userid, setUserid] = useState(NaN);
   const [listened, setListened] = useState([]);
   const [wanted, setWanted] = useState([]);
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   useEffect(() => {
     const bearerLS = localStorage.getItem('bearer');
     if (bearerLS){
       setBearer(bearerLS);
     }
   }, []);
-  let initialContext = {bearer, setBearer, name, setName, podcasts, setPodcasts, userid, setUserid, listened, setListened, wanted, setWanted};
+  let initialContext = {password, setPassword, email, setEmail, bearer, setBearer, name, setName, podcasts, setPodcasts, userid, setUserid, listened, setListened, wanted, setWanted};
   return (
     <AppProvider value={initialContext}>
       <div className="App container text-primary bg-secondary pb-4">
