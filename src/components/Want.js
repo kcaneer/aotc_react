@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-  Collapse,
+  Card,
+  CardText,
+  CardTitle,
+  CardSubtitle,
   Button,
   CardBody,
-  Card,
-  UncontrolledCollapse,
 } from "reactstrap";
 import AppContext from "../Utilities/AppContext";
 import { axiosHelper } from "../Utilities/axiosHelper";
@@ -111,14 +112,6 @@ export default function Listened() {
         </div>
       </nav>
       <div className="container bg-secondary text-center rounded">
-        <Button
-          id="lunch"
-          className="pt-4 bg-primary text-light border border-primary
-            rounded mb-2"
-        >
-          <h4>These are all of the podcasts you want to listen to!</h4>
-        </Button>
-        <UncontrolledCollapse toggler="#lunch">
           <Card className="bg-primary">
             <CardBody>
               <div className="col col-12 mx-auto rounded">
@@ -141,7 +134,6 @@ export default function Listened() {
               </div>
             </CardBody>
           </Card>
-        </UncontrolledCollapse>
       </div>
     </div>
   );
