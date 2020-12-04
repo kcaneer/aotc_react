@@ -1,28 +1,47 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { axiosHelper } from "../../Utilities/axiosHelper";
+import AppContext from "../../Utilities/AppContext";
 
 export default function Registration() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const history = useHistory();
-  
-  function receivedBearer(data){
-        setBearer(data.access_token);
-        localStorage.setItem("bearer", data.access_token);
-      }
-      
+  const {
+    bearer,
+    setName,
+    name,
+    setBearer,
+    userid,
+    setUserid,
+    podcasts,
+    setPodcasts,
+    email,
+    setEmail,
+    password,
+    setPassword
+  } = useContext(AppContext);
+
+  function receivedBearer(data) {
+    setBearer(data.access_token);
+    localStorage.setItem("bearer", data.access_token);
+  }
+
   const handleClick = (event) => {
     const headers = {
-      'Accept': "application/json",
+      Accept: "application/json",
       "Content-Type": "application/json; charset=utf-8",
     };
-    axiosHelper({method:'post', url:'http://127.0.0.1:8000/register', data:{
+    axiosHelper({
+      method: "post",
+      url: "http://127.0.0.1:8000/register",
+      data: {
         name,
         email,
         password,
-      }, headers, functionToRun: receivedBearer, history}) 
+      },
+      headers,
+      functionToRun: receivedBearer,
+      history,
+    });
   };
   return (
     <div className="p-5 my-auto">
