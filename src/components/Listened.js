@@ -1,18 +1,64 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
+import {
+  Collapse,
+  Button,
+  CardBody,
+  Card,
+  UncontrolledCollapse,
+} from "reactstrap";
 import AppContext from "../Utilities/AppContext";
-
+import { axiosHelper } from "../Utilities/axiosHelper";
+import { useHistory } from "react-router-dom";
 export default function Listened() {
   const history = useHistory();
-  const { bearer, setName, name, setBearer } = useContext(AppContext);
+  const {
+    bearer,
+    setName,
+    name,
+    setBearer,
+    listened,
+    setListened,
+  } = useContext(AppContext);
+
+    const bearerLS = localStorage.getItem("bearer");
+    if (bearerLS) {
+      setBearer(bearerLS);
+    }
+    console.log(bearerLS)
+
 
   const logout = (event) => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/logout",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearer}`,
+      },
+    });
     setBearer("");
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");
   };
-  
+
+  useEffect(() => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/listenedpodcasts",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearerLS}`,
+      },
+      history,
+      functionToRun: receivedListenedPodcasts,
+    });
+  }, []);
+
+  function receivedListenedPodcasts(data) {
+    console.log(data);
+    setListened(data);
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -62,6 +108,41 @@ export default function Listened() {
           </button>
         </div>
       </nav>
+      <div className="container bg-secondary text-center rounded">
+        <Button
+          id="lunch"
+          className="pt-4 bg-primary text-light border border-primary
+            rounded mb-2"
+        >
+          <h4>These are all of the podcasts you have listened to!</h4>
+        </Button>
+        <UncontrolledCollapse toggler="#lunch">
+          <Card className="bg-primary">
+            <CardBody>
+              <div className="col col-12 mx-auto rounded">
+                {listened.map((obj, i) => {
+                  return (
+                    <div
+                      key={i}
+                      className="row justify-content-around pt-3 bg-secondary border border-primary rounded my-auto"
+                    >
+                      <div className="col col-8 text-left pt-1 text-center text-primary">
+                        <h6>
+                          <strong>
+                            {obj.podcast.title}
+                          </strong>
+                        </h6>
+                        <div>{obj.info}</div>
+                        <div className="text-success pb-3">{obj.genre}</div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardBody>
+          </Card>
+        </UncontrolledCollapse>
+      </div>
     </div>
   );
 }

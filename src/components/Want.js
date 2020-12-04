@@ -1,7 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import { useHistory } from "react-router-dom";
-import AppContext from "../Utilities/AppContext";
-// import { axiosHelper } from "../../Utilities/axiosHelper";
 import {
   Collapse,
   Button,
@@ -9,31 +6,60 @@ import {
   Card,
   UncontrolledCollapse,
 } from "reactstrap";
-
-export default function Want() {
+import AppContext from "../Utilities/AppContext";
+import { axiosHelper } from "../Utilities/axiosHelper";
+import { useHistory } from "react-router-dom";
+export default function Listened() {
   const history = useHistory();
-  const { bearer, setBearer } = useContext(AppContext);
+  const {
+    bearer,
+    setName,
+    name,
+    setBearer,
+    listened,
+    setListened,
+    wanted,
+    setWanted
+  } = useContext(AppContext);
+
+  const bearerLS = localStorage.getItem("bearer");
+  if (bearerLS) {
+    setBearer(bearerLS);
+  }
+  console.log(bearerLS);
 
   const logout = (event) => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/logout",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearer}`,
+      },
+    });
     setBearer("");
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");
   };
-  
-  // useEffect(() => {
-  //   if (bearer.length > 0) {
-  //     axiosHelper({
-  //       method: "get",
-  //       url: "http://127.0.0.1:8000/api/user",
-  //       headers: {
-  //         Accept: "application/json",
-  //         Authorization: `Bearer ${bearer}`,
-  //       },
-  //       history,
-  //       functionToRun: receivedUserInfo,
-  //     });
-  //   }
+
+  useEffect(() => {
+    axiosHelper({
+      method: "get",
+      url: "http://127.0.0.1:8000/wantedpodcasts",
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${bearerLS}`,
+      },
+      history,
+      functionToRun: receivedWantedPodcasts,
+    });
+  }, []);
+
+  function receivedWantedPodcasts(data) {
+    console.log(data);
+    setWanted(data);
+  }
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -89,13 +115,13 @@ export default function Want() {
           className="pt-4 bg-primary text-light border border-primary
             rounded mb-2"
         >
-          <h4>Here are some popular podcasts you might want to check out!</h4>
+          <h4>These are all of the podcasts you want to listen to!</h4>
         </Button>
         <UncontrolledCollapse toggler="#lunch">
           <Card className="bg-primary">
             <CardBody>
               <div className="col col-12 mx-auto rounded">
-                {/* {topTwentyFive.map((obj, i) => {
+                {wanted.map((obj, i) => {
                   return (
                     <div
                       key={i}
@@ -103,16 +129,14 @@ export default function Want() {
                     >
                       <div className="col col-8 text-left pt-1 text-center text-primary">
                         <h6>
-                          <strong>
-                            {obj.id}. {obj.title}
-                          </strong>
+                          <strong>{obj.podcast.title}</strong>
                         </h6>
                         <div>{obj.info}</div>
                         <div className="text-success pb-3">{obj.genre}</div>
                       </div>
                     </div>
                   );
-                })} */}
+                })}
               </div>
             </CardBody>
           </Card>

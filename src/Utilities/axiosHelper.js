@@ -15,12 +15,6 @@ export async function axiosHelper({
     headers,
   })
     .then((response) => {
-      if (
-        response.status === 200 &&
-        history.location.pathname !== "/dashboard"
-      ) {
-        history.push("/dashboard");
-      }
       if (functionToRun) {
         functionToRun(response.data);
       }
