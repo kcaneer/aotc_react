@@ -20,12 +20,11 @@ export default function Listened() {
     setListened,
   } = useContext(AppContext);
 
-    const bearerLS = localStorage.getItem("bearer");
-    if (bearerLS) {
-      setBearer(bearerLS);
-    }
-    console.log(bearerLS)
-
+  const bearerLS = localStorage.getItem("bearer");
+  if (bearerLS) {
+    setBearer(bearerLS);
+  }
+  console.log(bearerLS);
 
   const logout = (event) => {
     axiosHelper({
@@ -37,6 +36,7 @@ export default function Listened() {
       },
     });
     setBearer("");
+    setName("");
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");
@@ -128,9 +128,7 @@ export default function Listened() {
                     >
                       <div className="col col-8 text-left pt-1 text-center text-primary">
                         <h6>
-                          <strong>
-                            {obj.podcast.title}
-                          </strong>
+                          <strong>{obj.podcast.title}</strong>
                         </h6>
                         <div>{obj.info}</div>
                         <div className="text-success pb-3">{obj.genre}</div>

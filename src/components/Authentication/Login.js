@@ -10,6 +10,7 @@ export default function Login() {
   const { setBearer } = useContext(AppContext);
 
   function receivedInfo(data) {
+    console.log(data)
     setBearer(data.access_token);
     localStorage.setItem("bearer", data.access_token);
   }

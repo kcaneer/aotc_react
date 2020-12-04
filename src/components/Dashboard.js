@@ -22,16 +22,19 @@ export default function Dashboard() {
     podcasts,
     setPodcasts,
   } = useContext(AppContext);
-
+  const bearerLS = localStorage.getItem("bearer");
+  if (bearerLS) {
+    setBearer(bearerLS);
+  }
   function receivedUserInfo(data) {
     setName(data.name);
     setUserid(data.id);
-    console.log(data);
+    // console.log(data);
   }
 
   function receivedPodcastInfo(data) {
     setPodcasts(data);
-    console.log(data);
+    // console.log(data);
   }
 
   const logout = (event) => {
@@ -44,6 +47,7 @@ export default function Dashboard() {
       },
     });
     setBearer("");
+    setName('');
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");

@@ -19,7 +19,7 @@ export default function Listened() {
     listened,
     setListened,
     wanted,
-    setWanted
+    setWanted,
   } = useContext(AppContext);
 
   const bearerLS = localStorage.getItem("bearer");
@@ -38,6 +38,7 @@ export default function Listened() {
       },
     });
     setBearer("");
+    setName("");
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");
