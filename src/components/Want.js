@@ -92,17 +92,6 @@ export default function Listened() {
               </a>
             </li>
           </ul>
-          <form className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Find a podcast here"
-              aria-label="Search"
-            />
-            <button className="btn btn-outline-secondary my-auto" type="submit">
-              Search
-            </button>
-          </form>
           <button
             className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
             onClick={logout}
