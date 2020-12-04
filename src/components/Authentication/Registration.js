@@ -17,12 +17,13 @@ export default function Registration() {
     email,
     setEmail,
     password,
-    setPassword
+    setPassword,
   } = useContext(AppContext);
 
   function receivedBearer(data) {
-    setBearer(data.access_token);
-    localStorage.setItem("bearer", data.access_token);
+    setBearer(data.data.token);
+    localStorage.setItem("bearer", data.data.token);
+    history.push("/dashboard");
   }
 
   const handleClick = (event) => {
