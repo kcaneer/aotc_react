@@ -26,6 +26,8 @@ export default function Dashboard() {
   if (bearerLS) {
     setBearer(bearerLS);
   }
+  const [search, setSearch] = useState("");
+
   function receivedUserInfo(data) {
     setName(data.name);
     setUserid(data.id);
@@ -47,7 +49,7 @@ export default function Dashboard() {
       },
     });
     setBearer("");
-    setName('');
+    setName("");
     history.push("/");
     localStorage.removeItem("user");
     localStorage.removeItem("bearer");
@@ -118,6 +120,14 @@ export default function Dashboard() {
     history.push("/dashboard");
   };
 
+  let filteredPodcasts = podcasts;
+
+  if (search.length > 0) {
+    filteredPodcasts = podcasts.filter( podcasts => {
+      return podcasts.title.toLowerCase().includes(search.toLowerCase());
+    });
+  }
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -151,15 +161,12 @@ export default function Dashboard() {
           <form className="form-inline my-2 my-lg-0">
             <input
               className="form-control mr-sm-2"
-              type="search"
+              type="text"
               placeholder="Find a podcast here"
               aria-label="Search"
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button
-              className="btn btn-outline-secondary my-auto"
-              type="submit"
-              // onClick={() => search()}
-            >
+            <button className="btn btn-outline-secondary my-auto" type="submit">
               Search
             </button>
           </form>
@@ -190,7 +197,7 @@ export default function Dashboard() {
           <Card className="bg-primary">
             <CardBody>
               <div className="col col-12 mx-auto rounded">
-                {podcasts.map((obj, i) => {
+                {filteredPodcasts.map((obj, i) => {
                   const foundListenData = obj.listens.find((i) => {
                     console.log({ i, userid, obj });
                     return i.user_id == userid;
