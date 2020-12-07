@@ -50,6 +50,7 @@ export default function Registration() {
         type="name"
         name="name"
         placeholder="name"
+        className="rounded border border-secondary m-2"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
@@ -58,6 +59,7 @@ export default function Registration() {
         type="email"
         name="email"
         placeholder="Email"
+        className="rounded border border-secondary m-2"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -66,16 +68,19 @@ export default function Registration() {
         type="password"
         name="password"
         placeholder="Password"
+        className="rounded border border-secondary m-2"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button
-        className="bg-primary text-secondary rounded ml-1 border border-primary"
-        onClick={handleClick}
-      >
-        Register
-      </button>
+      <div className="col col-sm-12">
+        <button
+          className="bg-primary text-white rounded ml-1 mt-2 border border-primary"
+          onClick={handleClick}
+        >
+          Register
+        </button>
+      </div>
     </div>
   );
 }

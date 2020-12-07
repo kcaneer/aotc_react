@@ -108,14 +108,26 @@ export default function Listened() {
                   return (
                     <div
                       key={i}
-                      className="row justify-content-around pt-3 bg-secondary border border-primary rounded my-auto"
+                      className="row justify-content-around pt-3 pb-3 bg-secondary border border-primary rounded my-auto"
                     >
                       <div className="col col-8 text-left pt-1 text-center text-primary">
-                        <h6>
+                        <h6 className="mb-0">
                           <strong>{obj.podcast.title}</strong>
+                          <br></br>
+                          <br></br>
                         </h6>
-                        <div>{obj.info}</div>
-                        <div className="text-success pb-3">{obj.genre}</div>
+                        <div>{obj.podcast.info}</div>
+                        <p className="mb-0 mt-1">
+                          <em>By: {obj.podcast.creator}</em>
+                        </p>
+                        <div className="row justify-content-around">
+                          <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-left mb-1">
+                            ~{obj.podcast.length} minutes per episode
+                          </div>
+                          <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-right mb-1">
+                            {obj.podcast.genre}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   );
