@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-  Collapse,
   Button,
   CardBody,
   Card,
@@ -31,12 +30,10 @@ export default function Dashboard() {
   function receivedUserInfo(data) {
     setName(data.name);
     setUserid(data.id);
-    // console.log(data);
   }
 
   function receivedPodcastInfo(data) {
     setPodcasts(data);
-    // console.log(data);
   }
 
   const logout = (event) => {
@@ -179,10 +176,8 @@ export default function Dashboard() {
         </div>
       </nav>
       <div class="jumbotron jumbotron-fluid bg-secondary">
-        <div class="container">
-          <h1 class="display-4">Welcome back to goodListens, {name}</h1>
+          <h1 class="display-4">Welcome back to goodListens,<br></br> {name}</h1>
           <h3 class="lead">Your podcast place.</h3>
-        </div>
       </div>
       <div className="container bg-secondary text-center rounded">
         <Button
@@ -199,29 +194,39 @@ export default function Dashboard() {
               <div className="col col-12 mx-auto rounded">
                 {filteredPodcasts.map((obj, i) => {
                   const foundListenData = obj.listens.find((i) => {
-                    console.log({ i, userid, obj });
+                    {/* console.log({ i, userid, obj }); */}
                     return i.user_id == userid;
                   });
-                  console.log(foundListenData);
+                  {/* console.log(foundListenData); */}
                   return (
                     <div
                       key={i}
                       className="row justify-content-around pt-3 bg-secondary border border-primary rounded my-auto"
                     >
-                      <div className="col col-8 text-left pt-1 text-center text-primary">
+                      <div className="col col-8 pt-1 text-center text-primary">
                         <h6>
                           <strong>
                             {obj.id}. {obj.title}
                           </strong>
                         </h6>
                         <div>{obj.info}</div>
-                        <div className="text-success pb-3">{obj.genre}</div>
+                        <p className="mb-0 mt-1">
+                          <em>By: {obj.creator}</em>
+                        </p>
+                        <div className="row justify-content-around pb-3">
+                          <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-left mb-1">
+                            ~{obj.length} minutes per episode
+                          </div>
+                          <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-right mb-1">
+                            {obj.genre}
+                          </div>
+                        </div>
                       </div>
                       <div className="col col-4 text-right my-auto">
                         <button
                           type="button"
                           id="wanted"
-                          className="btn btn-primary btn-sm mr-2"
+                          className="btn btn-success border border-primary btn-sm mr-2"
                           onClick={() => addToWant(obj.id)}
                         >
                           {foundListenData

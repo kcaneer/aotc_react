@@ -10,9 +10,10 @@ export default function Login() {
   const { setBearer } = useContext(AppContext);
 
   function receivedInfo(data) {
-    console.log(data)
+    console.log(data);
     setBearer(data.access_token);
     localStorage.setItem("bearer", data.access_token);
+    history.push("/dashboard");
   }
 
   const handleClick = (event) => {
@@ -26,7 +27,7 @@ export default function Login() {
       data: {
         grant_type: "password",
         client_id: "2",
-        client_secret: "NLrWUXaDUxzJHeDB4kgNRMCq2Xyc2CccT7DnAPYs",
+        client_secret: "meY2VxMS5vMDfWtMbuKSjQn7i7YNVjvWOriapsMv",
         password,
         username: email,
         scope: "",
@@ -35,7 +36,6 @@ export default function Login() {
       history,
       functionToRun: receivedInfo,
     });
-    history.push("/dashboard");
   };
   return (
     <div className="p-5 my-auto">
@@ -43,6 +43,7 @@ export default function Login() {
         type="email"
         name="email"
         placeholder="Email"
+        className="rounded border border-secondary m-2"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
@@ -51,16 +52,19 @@ export default function Login() {
         type="password"
         name="password"
         placeholder="Password"
+        className="rounded border border-secondary m-2"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
       />
-      <button
-        className="bg-primary text-secondary rounded ml-1 border border-primary"
-        onClick={handleClick}
-      >
-        Login
-      </button>
+      <div className="col col-sm-12">
+        <button
+          className="bg-primary text-white rounded ml-1 border border-primary mt-2"
+          onClick={handleClick}
+        >
+          Login
+        </button>
+      </div>
     </div>
   );
 }

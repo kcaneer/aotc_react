@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
 import Login from './Authentication/Login'
 import Registration from './Authentication/Registration'
-
+import TopTen from './TopTen'
 const Example = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
 
@@ -47,8 +47,7 @@ const Example = (props) => {
               >
                 <PopoverHeader>Login to view this content</PopoverHeader>
                 <PopoverBody>
-                  Create a free account to get access to thousands of podcasts
-                  and track your listening activity.
+                  Create a free account to keep track of the podcasts you want to listen to!
                 </PopoverBody>
               </Popover>
             </li>
@@ -68,33 +67,16 @@ const Example = (props) => {
               >
                 <PopoverHeader>Login to view this content</PopoverHeader>
                 <PopoverBody>
-                  Create a free account to get access to thousands of podcasts
-                  and track your listening activity.
+                  Create a free account to track your listening activity.
                 </PopoverBody>
               </Popover>
             </li>
           </ul>
-          {/* <form className="form-inline my-2 my-lg-0">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Find a podcast here"
-              aria-label="Search"
-            />
-            <button
-              className="btn btn-outline-secondary my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </form> */}
         </div>
       </nav>
       <div className="jumbotron jumbotron-fluid bg-secondary">
-        <div className="container">
           <h1 className="display-4">Welcome to goodListens</h1>
           <h3 className="lead">Your podcast place.</h3>
-        </div>
       </div>
       <h3>
         Register or Login to find new podcasts and track your listening
@@ -102,6 +84,7 @@ const Example = (props) => {
       </h3>
       <Login />
       <Registration />
+      <TopTen />
     </div>
   );
 };
