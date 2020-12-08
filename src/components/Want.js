@@ -63,7 +63,7 @@ export default function Listened() {
     setWanted(data);
   }
   return (
-    <div>
+    <div className="vh-100">
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
         <button
           className="navbar-toggler"
