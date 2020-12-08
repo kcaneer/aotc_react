@@ -27,7 +27,7 @@ export default function Login() {
       data: {
         grant_type: "password",
         client_id: "2",
-        client_secret: "meY2VxMS5vMDfWtMbuKSjQn7i7YNVjvWOriapsMv",
+        client_secret: "4ACr3pcVxXcME2VBpLQuXjR2R3iWbTXIjExYLYg9",
         password,
         username: email,
         scope: "",
