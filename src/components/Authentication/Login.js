@@ -38,7 +38,7 @@ export default function Login() {
     });
   };
   return (
-    <div className="p-5 my-auto">
+    <div className="p-2 my-auto">
       <input
         type="email"
         name="email"

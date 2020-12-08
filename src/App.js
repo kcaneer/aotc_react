@@ -6,6 +6,7 @@ import Want from "./components/Want";
 import Listened from "./components/Listened";
 import Public from "./components/Public";
 import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AppProvider } from "./Utilities/AppContext";
 function App() {
@@ -51,6 +52,7 @@ function App() {
             <Route exact path={"/dashboard/want"} component={Want} />
             <Route exact path={"/dashboard/listened"} component={Listened} />
             <Route exact path={"/dashboard/logout"} component={Public} />
+            <Route exact path={"/profile"} component={Profile} />
           </Switch>
         </Router>
         <footer className="sticky-bottom bg-secondary text-secondary">test<br></br>test<br></br>test<br></br>test<br></br>test</footer>
