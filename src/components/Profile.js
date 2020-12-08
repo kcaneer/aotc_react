@@ -2,6 +2,15 @@ import React, { useState, useEffect, useContext } from "react";
 import AppContext from "../Utilities/AppContext";
 import { axiosHelper } from "../Utilities/axiosHelper";
 import { useHistory } from "react-router-dom";
+import {
+  Card,
+  CardImg,
+  CardText,
+  CardBody,
+  CardTitle,
+  CardSubtitle,
+  Button,
+} from "reactstrap";
 
 export default function Profile() {
   const history = useHistory();
@@ -26,10 +35,6 @@ export default function Profile() {
     setName(data.name);
     setUserid(data.id);
     setEmail(data.email);
-  }
-
-  function receivedPodcastInfo(data) {
-    setPodcasts(data);
   }
 
   const logout = (event) => {
@@ -63,10 +68,8 @@ export default function Profile() {
     }
   }, [bearer]);
 
- 
-
   return (
-    <div>
+    <div className="vh-100">
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
         <button
           className="navbar-toggler"
@@ -117,7 +120,20 @@ export default function Profile() {
           </div>
         </div>
       </nav>
-      <h1>You are currently logged in as {name} with {email}</h1>
+      <Card className="border border-primary">
+        <CardBody>
+          <CardTitle tag="h4" className="pb-3">
+            You are logged in as:
+          </CardTitle>
+          <CardSubtitle tag="h3" className="mb-2 text-muted">
+            {name}
+          </CardSubtitle>
+          <CardText tag="h5" className="pb-3">
+            {email}
+          </CardText>
+          <Button onClick={logout} className="border border-primary">Logout</Button>
+        </CardBody>
+      </Card>
     </div>
   );
 }
