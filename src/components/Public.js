@@ -1,13 +1,16 @@
 import React, { useState } from "react";
 import { Button, Popover, PopoverHeader, PopoverBody } from "reactstrap";
-import Login from './Authentication/Login'
-import Registration from './Authentication/Registration'
-import TopTen from './TopTen'
+import Login from "./Authentication/Login";
+import Registration from "./Authentication/Registration";
+import TopTen from "./TopTen";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPodcast } from "@fortawesome/free-solid-svg-icons";
+
 const Example = (props) => {
   const [popoverOpen, setPopoverOpen] = useState(false);
 
   const toggle = () => setPopoverOpen(!popoverOpen);
-  
+
   const [popoverOpen2, setPopoverOpen2] = useState(false);
 
   const toggle2 = () => setPopoverOpen2(!popoverOpen2);
@@ -47,7 +50,8 @@ const Example = (props) => {
               >
                 <PopoverHeader>Login to view this content</PopoverHeader>
                 <PopoverBody>
-                  Create a free account to keep track of the podcasts you want to listen to!
+                  Create a free account to keep track of the podcasts you want
+                  to listen to!
                 </PopoverBody>
               </Popover>
             </li>
@@ -75,8 +79,10 @@ const Example = (props) => {
         </div>
       </nav>
       <div className="jumbotron jumbotron-fluid bg-secondary">
-          <h1 className="display-4">Welcome to goodListens</h1>
-          <h3 className="lead">Your podcast place.</h3>
+        <h1 className="display-4">Welcome to goodListens</h1>
+        <h3 className="lead">
+          Your podcast place. <FontAwesomeIcon icon={faPodcast} />{" "}
+        </h3>
       </div>
       <h3>
         Register or Login to find new podcasts and track your listening
