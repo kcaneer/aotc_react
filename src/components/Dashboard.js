@@ -167,17 +167,33 @@ export default function Dashboard() {
               Search
             </button>
           </form>
-          <button
-            className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
-            onClick={logout}
-          >
-            Logout
-          </button>
+          <div className="dropdown ml-5">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" href="/profile">
+                Profile
+              </a>
+              <a className="dropdown-item" onClick={logout}>
+                Logout
+              </a>
+            </div>
+          </div>
         </div>
       </nav>
       <div class="jumbotron jumbotron-fluid bg-secondary">
-          <h1 class="display-4">Welcome back to goodListens,<br></br> {name}</h1>
-          <h3 class="lead">Your podcast place.</h3>
+        <h1 class="display-4">
+          Welcome back to goodListens,<br></br> {name}
+        </h1>
+        <h3 class="lead">Your podcast place.</h3>
       </div>
       <div className="container bg-secondary text-center rounded">
         <Button
@@ -194,10 +210,8 @@ export default function Dashboard() {
               <div className="col col-12 mx-auto rounded">
                 {filteredPodcasts.map((obj, i) => {
                   const foundListenData = obj.listens.find((i) => {
-                    {/* console.log({ i, userid, obj }); */}
                     return i.user_id == userid;
                   });
-                  {/* console.log(foundListenData); */}
                   return (
                     <div
                       key={i}

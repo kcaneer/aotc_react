@@ -90,12 +90,26 @@ export default function Listened() {
               </a>
             </li>
           </ul>
-          <button
-            className="btn btn-outline-secondary my-2 my-sm-0 ml-5"
-            onClick={logout}
-          >
-            Logout
-          </button>
+          <div className="dropdown ml-5">
+            <button
+              className="btn btn-secondary dropdown-toggle"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Profile
+            </button>
+            <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a className="dropdown-item" href="/profile">
+                Profile
+              </a>
+              <a className="dropdown-item" onClick={logout}>
+                Logout
+              </a>
+            </div>
+          </div>
         </div>
       </nav>
 

@@ -72,11 +72,8 @@ export default function Dashboard() {
                             {obj.id}. {obj.title}
                           </strong>
                         </h6>
-                        <div>{obj.info}</div>
+                        {/* <div>{obj.info}</div> */}
                         <div className="row justify-content-around">
-                          <div className="text-primary bg bg-white rounded pl-3 pr-3 mt-3 pb-1 text-left mb-1">
-                            ~{obj.length} minutes per episode
-                          </div>
                           <div className="text-primary bg bg-white rounded pl-3 pr-3 mt-3 pb-1 text-right mb-1">
                             {obj.genre}
                           </div>

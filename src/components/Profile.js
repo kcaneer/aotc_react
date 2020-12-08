@@ -1,33 +1,36 @@
 import React, { useState, useEffect, useContext } from "react";
-import {
-  Card,
-  CardText,
-  CardTitle,
-  CardSubtitle,
-  Button,
-  CardBody,
-} from "reactstrap";
 import AppContext from "../Utilities/AppContext";
 import { axiosHelper } from "../Utilities/axiosHelper";
 import { useHistory } from "react-router-dom";
-export default function Listened() {
+
+export default function Profile() {
   const history = useHistory();
   const {
     bearer,
     setName,
     name,
     setBearer,
-    listened,
-    setListened,
-    wanted,
-    setWanted,
+    userid,
+    setUserid,
+    podcasts,
+    setPodcasts,
+    email,
+    setEmail
   } = useContext(AppContext);
-
   const bearerLS = localStorage.getItem("bearer");
   if (bearerLS) {
     setBearer(bearerLS);
   }
-  console.log(bearerLS);
+
+  function receivedUserInfo(data) {
+    setName(data.name);
+    setUserid(data.id);
+    setEmail(data.email);
+  }
+
+  function receivedPodcastInfo(data) {
+    setPodcasts(data);
+  }
 
   const logout = (event) => {
     axiosHelper({
@@ -46,22 +49,22 @@ export default function Listened() {
   };
 
   useEffect(() => {
-    axiosHelper({
-      method: "get",
-      url: "http://127.0.0.1:8000/wantedpodcasts",
-      headers: {
-        Accept: "application/json",
-        Authorization: `Bearer ${bearerLS}`,
-      },
-      history,
-      functionToRun: receivedWantedPodcasts,
-    });
-  }, []);
+    if (bearer.length > 0) {
+      axiosHelper({
+        method: "get",
+        url: "http://127.0.0.1:8000/api/user",
+        headers: {
+          Accept: "application/json",
+          Authorization: `Bearer ${bearer}`,
+        },
+        history,
+        functionToRun: receivedUserInfo,
+      });
+    }
+  }, [bearer]);
 
-  function receivedWantedPodcasts(data) {
-    console.log(data);
-    setWanted(data);
-  }
+ 
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-light bg-primary mb-3">
@@ -92,9 +95,9 @@ export default function Listened() {
               </a>
             </li>
           </ul>
-          <div className="dropdown ml-5">
+          <div className="dropdown">
             <button
-              className="btn btn-secondary dropdown-toggle"
+              className="btn btn-secondary dropdown-toggle ml-5"
               type="button"
               id="dropdownMenuButton"
               data-toggle="dropdown"
@@ -105,7 +108,7 @@ export default function Listened() {
             </button>
             <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <a className="dropdown-item" href="/profile">
-                Profile
+                View
               </a>
               <a className="dropdown-item" onClick={logout}>
                 Logout
@@ -114,42 +117,7 @@ export default function Listened() {
           </div>
         </div>
       </nav>
-      <div className="container bg-secondary text-center rounded">
-        <Card className="bg-primary">
-          <CardBody>
-            <div className="col col-12 mx-auto rounded">
-              {wanted.map((obj, i) => {
-                return (
-                  <div
-                    key={i}
-                    className="row justify-content-around pt-3 pb-3 bg-secondary border border-primary rounded my-auto"
-                  >
-                    <div className="col col-8 text-left pt-1 text-center text-primary">
-                      <h6 className="mb-0">
-                        <strong>{obj.podcast.title}</strong>
-                        <br></br>
-                        <br></br>
-                      </h6>
-                      <div>{obj.podcast.info}</div>
-                      <p className="mb-0 mt-1">
-                        <em>By: {obj.podcast.creator}</em>
-                      </p>
-                      <div className="row justify-content-around">
-                        <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-left mb-1">
-                          ~{obj.podcast.length} minutes per episode
-                        </div>
-                        <div className="text-primary bg bg-white border border-primary rounded pl-3 pr-3 mt-3 pb-1 text-right mb-1">
-                          {obj.podcast.genre}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </CardBody>
-        </Card>
-      </div>
+      <h1>You are currently logged in as {name} with {email}</h1>
     </div>
   );
 }
