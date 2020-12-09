@@ -23,7 +23,7 @@ export default function Login() {
     };
     axiosHelper({
       method: "post",
-      url: "http://127.0.0.1:8000/v1/oauth/token",
+      url: "http://goodlistens.herokuapp.com/v1/oauth/token",
       data: {
         grant_type: "password",
         client_id: "2",

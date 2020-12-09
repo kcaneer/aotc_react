@@ -30,7 +30,7 @@ export default function Listened() {
   const logout = (event) => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/logout",
+      url: "http://goodlistens.herokuapp.com/logout",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${bearer}`,
@@ -46,7 +46,7 @@ export default function Listened() {
   useEffect(() => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/listenedpodcasts",
+      url: "http://goodlistens.herokuapp.com/listenedpodcasts",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${bearerLS}`,

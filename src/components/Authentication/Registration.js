@@ -33,7 +33,7 @@ export default function Registration() {
     };
     axiosHelper({
       method: "post",
-      url: "http://127.0.0.1:8000/register",
+      url: "http://goodlistens.herokuapp.com/register",
       data: {
         name,
         email,

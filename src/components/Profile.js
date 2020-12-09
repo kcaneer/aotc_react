@@ -40,7 +40,7 @@ export default function Profile() {
   const logout = (event) => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/logout",
+      url: "http://goodlistens.herokuapp.com/logout",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${bearer}`,
@@ -57,7 +57,7 @@ export default function Profile() {
     if (bearer.length > 0) {
       axiosHelper({
         method: "get",
-        url: "http://127.0.0.1:8000/api/user",
+        url: "http://goodlistens.herokuapp.com/api/user",
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${bearer}`,

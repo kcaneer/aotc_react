@@ -31,7 +31,7 @@ export default function Dashboard() {
   useEffect(() => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/podcasts",
+      url: "http://goodlistens.herokuapp.com/podcasts",
       headers: {
         Accept: "application/json",
       },

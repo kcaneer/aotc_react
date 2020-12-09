@@ -39,7 +39,7 @@ export default function Dashboard() {
   const logout = (event) => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/logout",
+      url: "http://goodlistens.herokuapp.com/logout",
       headers: {
         Accept: "application/json",
         Authorization: `Bearer ${bearer}`,
@@ -56,7 +56,7 @@ export default function Dashboard() {
     if (bearer.length > 0) {
       axiosHelper({
         method: "get",
-        url: "http://127.0.0.1:8000/api/user",
+        url: "http://goodlistens.herokuapp.com/api/user",
         headers: {
           Accept: "application/json",
           Authorization: `Bearer ${bearer}`,
@@ -71,7 +71,7 @@ export default function Dashboard() {
   useEffect(() => {
     axiosHelper({
       method: "get",
-      url: "http://127.0.0.1:8000/podcasts",
+      url: "http://goodlistens.herokuapp.com/podcasts",
       headers: {
         Accept: "application/json",
       },
@@ -84,7 +84,7 @@ export default function Dashboard() {
   const addToWant = (id) => {
     axiosHelper({
       method: "post",
-      url: "http://127.0.0.1:8000/want",
+      url: "http://goodlistens.herokuapp.com/want",
       data: {
         podcast_id: id,
         user_id: userid,
@@ -102,7 +102,7 @@ export default function Dashboard() {
   const addToListened = (id) => {
     axiosHelper({
       method: "post",
-      url: "http://127.0.0.1:8000/listened",
+      url: "http://goodlistens.herokuapp.com/listened",
       data: {
         podcast_id: id,
         user_id: userid,
